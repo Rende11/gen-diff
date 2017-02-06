@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "utility for searching differences between config files",
   "bin": {
-  	"gendiff": "dist/bin/gendiff.js"
+  	"gendiff": "dist/bin/genDiff.js"
   },
   "repository": {
     "type": "git",
