@@ -1,7 +1,7 @@
 // @flow
-import json from './formats/json';
-import yaml from './formats/yaml';
-import ini from './formats/ini';
+import json from './json';
+import yaml from './yaml';
+import ini from './ini';
 
 export default (extension: string) => {
   switch (extension) {

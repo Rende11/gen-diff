@@ -1,7 +1,7 @@
 // @flow
 import fs from 'fs';
 import path from 'path';
-import getParser from './parserSelect';
+import getParser from './formats';
 import compare from './compare';
 
 const getDataFromFile = route => fs.readFileSync(route, 'utf8');

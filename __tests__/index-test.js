@@ -1,6 +1,6 @@
 // @flow
 import fs from 'fs';
-import genDiff from '../src/';
+import genDiff from '../src';
 
 describe('Basic structure', () => {
   const beforeJSON = '__tests__/fixtures/before.json';
