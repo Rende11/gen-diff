@@ -2,7 +2,7 @@ install:
 		npm install
 
 run:
-		npm run babel-node -- src/bin/gen-diff.js
+		npm run babel-node -- src/bin/genDiff.js
 
 test:
 		npm run test
