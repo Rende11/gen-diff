@@ -2,8 +2,7 @@
 
 import _ from 'lodash';
 
-const arrayToString = array => `{\n${array.map(item => `${item.status}
-  ${item.key}: ${item.data}`).join('\n')}\n}`;
+const arrayToString = array => `{\n${array.map(item => `${item.status}${item.key}: ${item.data}`).join('\n')}\n}`;
 
 const compare = (obj1: Object, obj2: Object) => {
   const keys1 = Object.keys(obj1);
