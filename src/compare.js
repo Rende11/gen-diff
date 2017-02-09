@@ -49,6 +49,7 @@ const renderPlainBody = (array) => {
 };
 
 const compare = (obj1: Object, obj2: Object) => {
+  console.log(obj1);
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
 
