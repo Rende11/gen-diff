@@ -1,12 +1,12 @@
 // @flow
 import _ from 'lodash';
+import util from 'util';
 
-
-const statusObj = {
+const getType = {
   added: '  + ',
   removed: '  - ',
-  stable: '    ',
-  object: '    ',
+  unchanged: '    ',
+  updated: '    ',
 };
 
 const isObject = obj => ((obj instanceof Object) && !(obj instanceof Array));
@@ -19,28 +19,43 @@ const compare = (obj1: Object, obj2: Object) => {
 
   const compareData = allKeys.map((key) => {
     if (obj1[key] === undefined) {
-      return { status: 'added', key, data: obj2[key] };
+      return { type: 'added', key, newValue: obj2[key] };
     }
     if (obj2[key] === undefined) {
-      return { status: 'removed', key, data: obj1[key] };
+      return { type: 'removed', key, oldValue: obj1[key] };
     }
     if (obj1[key] === obj2[key]) {
-      return { status: 'stable', key, data: obj1[key] };
+      return { type: 'unchanged', key, oldValue: obj1[key] };
     }
-    if (isObject(obj1[key]) || isObject(obj2[key])) {
-      return { status: 'object', key, data: compare(obj1[key], obj2[key]) };
+    if (isObject(obj1[key]) && isObject(obj2[key])) {
+      return { type: 'unchanged', key, children: compare(obj1[key], obj2[key]) };
     }
 
-    return [{ status: 'added', key, data: obj2[key] }, { status: 'removed', key, data: obj1[key] }];
+    return { type: 'updated', key, oldValue: obj1[key], newValue: obj2[key] };
   });
 
   return _.flatten(compareData);
 };
-const render = ast => ast.map(item => `${statusObj[item.status]}${item.key}: ${item.data}`);
-const border = rend => `{\n${rend.join('\n')}\n}`;
+
+const render = (node) => {
+  switch (node.type) {
+    case 'added':
+      return `${getType[node.type]}${JSON.stringify({ [node.key]: node.newValue }, '', 2)}`;
+    case 'removed':
+      return `${getType[node.type]}${JSON.stringify({ [node.key]: node.oldValue }, '', 2)}`;
+    case 'updated':
+      return JSON.stringify({ [node.key]}: node.oldValue, [node.key]: node.newValue }, '', 2);
+    case 'unchanged':
+      if (node.children) {
+        return `{${getType[node.type]}${node.key}: {${node.children.map(render)}}`;
+      }
+      return `${getType[node.type]}${JSON.stringify({ [node.key]: node.oldValue }, '', 2)}`;
+    // case default
+    //   return 'unknown type';
+  }
+};
 
 export default (obj1, obj2) => {
   const ast = compare(obj1, obj2);
-  const renderArray = render(ast);
-  return border(renderArray);
+  return ast.map(render);
 };
