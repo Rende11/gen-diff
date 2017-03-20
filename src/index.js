@@ -1,12 +1,13 @@
 // @flow
 import fs from 'fs';
 import path from 'path';
-import getParser from './parserSelect';
+import getParser from './formats';
 import compare from './compare';
 
 const getDataFromFile = route => fs.readFileSync(route, 'utf8');
-const getExtension = route => path.extname(route);
 
+const getExtension = route => path.extname(route).substring(1);
+// TODO remove hardcode -> substring(1);
 export default (firstPath: string, secondPath: string) => {
   const data1 = getDataFromFile(firstPath);
   const data2 = getDataFromFile(secondPath);

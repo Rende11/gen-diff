@@ -2,10 +2,13 @@ install:
 		npm install
 
 run:
-		npm run babel-node -- src/bin/genDiff.js
+		npm run babel-node -- dist/bin/genDiff.js ${OPTION} ${PATH1} ${PATH2}
 
 test:
 		npm run test
+
+test-watch:
+		npm run test -- --watchAll
 
 lint:
 		npm run -- eslint src __tests__
@@ -22,4 +25,3 @@ publish:
 
 flow:
 		npm run flow
-

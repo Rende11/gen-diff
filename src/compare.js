@@ -1,8 +1,16 @@
 // @flow
-
 import _ from 'lodash';
 
-const arrayToString = array => `{\n${array.map(item => `${item.status}${item.key}: ${item.data}`).join('\n')}\n}`;
+// const getType = {
+//   added: '  + ',
+//   removed: '  - ',
+//   unchanged: '    ',
+//   updated: '    ',
+// };
+
+const isObject = obj => ((obj instanceof Object) && !(obj instanceof Array));
+
+// const toJson = obj => JSON.stringify(obj, null, 2);
 
 const compare = (obj1: Object, obj2: Object) => {
   const keys1 = Object.keys(obj1);
@@ -10,24 +18,46 @@ const compare = (obj1: Object, obj2: Object) => {
 
   const allKeys = _.union(keys1, keys2);
 
-  const setAdded = key => ({ status: '  + ', key, data: obj2[key] });
-  const setStable = key => ({ status: '    ', key, data: obj1[key] });
-  const setRemoved = key => ({ status: '  - ', key, data: obj1[key] });
-
-  const comparedObj = allKeys.map((key) => {
+  const compareData = allKeys.map((key) => {
     if (obj1[key] === undefined) {
-      return setAdded(key);
+      return { type: 'added', key, newValue: obj2[key] };
     }
     if (obj2[key] === undefined) {
-      return setRemoved(key);
+      return { type: 'removed', key, oldValue: obj1[key] };
     }
     if (obj1[key] === obj2[key]) {
-      return setStable(key);
+      return { type: 'unchanged', key, oldValue: obj1[key] };
     }
-    return [setAdded(key), setRemoved(key)];
+    if (isObject(obj1[key]) && isObject(obj2[key])) {
+      return { type: 'unchanged', key, children: [...compare(obj1[key], obj2[key])] };
+    }
+
+    return { type: 'updated', key, oldValue: obj1[key], newValue: obj2[key] };
   });
 
-  return arrayToString(_.flatten(comparedObj));
+  return _.flatten(compareData);
 };
 
-export default compare;
+const render = (node) => {
+  switch (node.type) {
+    case 'added':
+      return { [node.key]: node.newValue };
+    case 'removed':
+      return { [node.key]: node.oldValue };
+    case 'updated':
+      return { [node.key]: node.oldValue, newValue: node.newValue };
+    case 'unchanged':
+      // if (node.children) {
+      //   return { [node.key]: node.children.map(render) };
+      // }
+      return { [node.key]: node.oldValue };
+    default :
+      return { result: 'empty' };
+  }
+};
+
+export default (obj1, obj2) => {
+  const ast = compare(obj1, obj2);
+
+  return ast.map(render);
+};
