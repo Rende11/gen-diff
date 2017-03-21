@@ -38,26 +38,4 @@ const compare = (obj1: Object, obj2: Object) => {
   return _.flatten(compareData);
 };
 
-const render = (node) => {
-  switch (node.type) {
-    case 'added':
-      return { [node.key]: node.newValue };
-    case 'removed':
-      return { [node.key]: node.oldValue };
-    case 'updated':
-      return { [node.key]: node.oldValue, newValue: node.newValue };
-    case 'unchanged':
-      // if (node.children) {
-      //   return { [node.key]: node.children.map(render) };
-      // }
-      return { [node.key]: node.oldValue };
-    default :
-      return { result: 'empty' };
-  }
-};
-
-export default (obj1, obj2) => {
-  const ast = compare(obj1, obj2);
-
-  return ast.map(render);
-};
+export default (obj1, obj2) => compare(obj1, obj2);
