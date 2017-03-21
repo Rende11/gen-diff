@@ -4,6 +4,7 @@ const getType = {
   added: ' + ',
   removed: ' - ',
   unchanged: '   ',
+  updated: '   ',
 };
 
 const getIndent = level => _.repeat(' ', level);
