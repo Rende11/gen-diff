@@ -3,7 +3,7 @@ node_js:
   - "node"
 
 scripts:
-  make lint
+  - make lint
 
 addons:
   code_climate:
