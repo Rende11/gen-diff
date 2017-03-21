@@ -1,19 +1,32 @@
-const toJson = (node) => {
+import _ from 'lodash';
+
+const getType = {
+  added: ' + ',
+  removed: ' - ',
+  unchanged: '   ',
+  updated: '   ',
+};
+
+const getIndent = level => _.repeat(' ', level);
+
+const toJson = (node, level = 1) => {
   switch (node.type) {
     case 'added':
-      return { [node.key]: node.newValue };
+      return `${getIndent(level)}${getType[node.type]}${node.key}: ${node.newValue}`;
     case 'removed':
-      return { [node.key]: node.oldValue };
+      return `${getIndent(level)}${getType[node.type]}${node.key}: ${node.oldValue}`;
     case 'updated':
-      return { [node.key]: node.oldValue, newValue: node.newValue };
+      return [`${getIndent(level)}${getType.added}${node.key}: ${node.newValue}`,
+        `${getIndent(level)}${getType.removed}${node.key}: ${node.oldValue}`].join('\n');
     case 'unchanged':
-      // if (node.children) {
-      //   return { [node.key]: node.children.map(render) };
-      // }
-      return { [node.key]: node.oldValue };
+      if (node.children) {
+        return `${getIndent(level)}${getType[node.type]}${node.key}: {
+          ${node.children.map(item => toJson(item, level + 1)).join('\n')}\n}`;
+      }
+      return `${getIndent(level)}${getType[node.type]}${node.key}: ${node.oldValue}`;
     default :
       return { result: 'empty' };
   }
 };
 
-export default ast => ast.map(toJson);
+export default ast => `{\n${ast.map(node => toJson(node, 1)).join('\n')}\n}`;

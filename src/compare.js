@@ -1,16 +1,7 @@
 // @flow
 import _ from 'lodash';
 
-// const getType = {
-//   added: '  + ',
-//   removed: '  - ',
-//   unchanged: '    ',
-//   updated: '    ',
-// };
-
 const isObject = obj => ((obj instanceof Object) && !(obj instanceof Array));
-
-// const toJson = obj => JSON.stringify(obj, null, 2);
 
 const compare = (obj1: Object, obj2: Object) => {
   const keys1 = Object.keys(obj1);
@@ -29,9 +20,8 @@ const compare = (obj1: Object, obj2: Object) => {
       return { type: 'unchanged', key, oldValue: obj1[key] };
     }
     if (isObject(obj1[key]) && isObject(obj2[key])) {
-      return { type: 'unchanged', key, children: [...compare(obj1[key], obj2[key])] };
+      return { type: 'unchanged', key, children: compare(obj1[key], obj2[key]) };
     }
-
     return { type: 'updated', key, oldValue: obj1[key], newValue: obj2[key] };
   });
 
