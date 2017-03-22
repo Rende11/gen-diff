@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import getParser from './formats';
 import compare from './compare';
-import render from './output';
+import getRenderer from './output';
 
 const getDataFromFile = route => fs.readFileSync(route, 'utf8');
 
@@ -17,5 +17,5 @@ export default (firstPath: string, secondPath: string) => {
   const object1 = getParser(extension1)(data1);
   const object2 = getParser(extension2)(data2);
   const diff = compare(object1, object2);
-  return render('json')(diff);
+  return getRenderer('json')(diff);
 };
