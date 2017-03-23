@@ -11,20 +11,20 @@ const getIndent = level => _.repeat('  ', level);
 
 const renderObj = (obj, level) => {
   const keys = Object.keys(obj);
-  const arr = keys.map(key => (obj[key] instanceof Object ?
+  const arr = keys.map(key => (_.isObject(obj[key]) ?
   `${getIndent(level + 1)}${key}: ${renderObj(obj[key], level + 2)}` :
   `${getIndent(level + 2)}${getType.unchanged}${key}: ${obj[key]}`));
   return `{\n${arr.join('\n')}\n  ${getIndent(level)}}`;
 };
 
 const drawValue = (value, level) => {
-  if (value instanceof Object) {
+  if (_.isObject(value)) {
     return renderObj(value, level);
   }
   return value;
 };
 
-const toJson = (node, level) => {
+const toPrettyDiff = (node, level) => {
   switch (node.type) {
     case 'added':
       return `${getIndent(level)}${getType[node.type]}${node.key}: ${drawValue(node.newValue, level)}`;
@@ -36,7 +36,7 @@ const toJson = (node, level) => {
     case 'unchanged':
       if (node.children) {
         return `${getIndent(level)}${getType[node.type]}${node.key}: {
-${node.children.map(item => toJson(item, level + 2)).join('\n')}\n${getIndent(level + 1)}}`;
+${node.children.map(item => toPrettyDiff(item, level + 2)).join('\n')}\n${getIndent(level + 1)}}`;
       }
       return `${getIndent(level)}${getType[node.type]}${node.key}: ${node.oldValue}`;
     default :
@@ -44,4 +44,4 @@ ${node.children.map(item => toJson(item, level + 2)).join('\n')}\n${getIndent(le
   }
 };
 
-export default ast => `{\n${ast.map(node => toJson(node, 1)).join('\n')}\n}`;
+export default ast => `{\n${ast.map(node => toPrettyDiff(node, 1)).join('\n')}\n}`;
