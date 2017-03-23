@@ -1,5 +1,5 @@
-import json from './json';
+import pretty from './prettyDiff';
 
-const renders = { json };
+const renders = { pretty };
 
 export default format => renders[format];
