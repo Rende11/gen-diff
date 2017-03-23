@@ -17,5 +17,5 @@ export default (firstPath: string, secondPath: string) => {
   const object1 = getParser(extension1)(data1);
   const object2 = getParser(extension2)(data2);
   const diff = compare(object1, object2);
-  return getRenderer('pretty')(diff);
+  return getRenderer('plain')(diff);
 };
