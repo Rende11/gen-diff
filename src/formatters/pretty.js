@@ -7,7 +7,7 @@ const getType = {
   updated: '  ',
 };
 
-const getIndent = level => _.repeat('  ', level);
+const getIndent = level => '  '.repeat(level);
 
 const renderObj = (obj, level) => {
   const keys = Object.keys(obj);
