@@ -2,10 +2,10 @@
 import fs from 'fs';
 import genDiff from '../src';
 
-describe('Basic structure', () => {
+describe('Basic structure, pretty out', () => {
   const beforeJSON = '__tests__/fixtures/before.json';
   const afterJSON = '__tests__/fixtures/after.json';
-  const diff = '__tests__/fixtures/expectedJSON.txt';
+  const diff = '__tests__/fixtures/expectedPretty.txt';
 
   it('JSON configs', () => {
     const actual = genDiff(beforeJSON, afterJSON);
@@ -31,7 +31,7 @@ describe('Basic structure', () => {
 });
 
 
-describe('Complex structure', () => {
+describe('Complex structure, ', () => {
   const beforeJSON = '__tests__/fixtures/complexBefore.json';
   const afterJSON = '__tests__/fixtures/complexAfter.json';
 
@@ -41,23 +41,30 @@ describe('Complex structure', () => {
   const beforeINI = '__tests__/fixtures/complexBefore.ini';
   const afterINI = '__tests__/fixtures/complexAfter.ini';
 
-  const diff = '__tests__/fixtures/expectedComplexJSON.txt';
+  const pretty = '__tests__/fixtures/expectedComplexPretty.txt';
+  const plain = '__tests__/fixtures/expectedComplexPlain.txt';
 
-  it('JSON configs', () => {
+  it('JSON configs with pretty out', () => {
     const actual = genDiff(beforeJSON, afterJSON);
-    const expected = fs.readFileSync(diff).toString();
+    const expected = fs.readFileSync(pretty).toString();
     expect(actual).toBe(expected);
   });
 
-  it('YAML configs', () => {
+  it('YAML configs with pretty out', () => {
     const actual = genDiff(beforeYAML, afterYAML);
-    const expected = fs.readFileSync(diff).toString();
+    const expected = fs.readFileSync(pretty).toString();
     expect(actual).toBe(expected);
   });
 
-  it('INI configs', () => {
+  it('INI configs with pretty out', () => {
     const actual = genDiff(beforeINI, afterINI);
-    const expected = fs.readFileSync(diff).toString();
+    const expected = fs.readFileSync(pretty).toString();
+    expect(actual).toBe(expected);
+  });
+
+  it('JSON configs with plain out', () => {
+    const actual = genDiff(beforeJSON, afterJSON, 'plain');
+    const expected = fs.readFileSync(plain).toString();
     expect(actual).toBe(expected);
   });
 });
