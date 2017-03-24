@@ -43,6 +43,7 @@ describe('Complex structure, ', () => {
 
   const pretty = '__tests__/fixtures/expectedComplexPretty.txt';
   const plain = '__tests__/fixtures/expectedComplexPlain.txt';
+  const json = '__tests__/fixtures/expectedComplexJSON.txt';
 
   it('JSON configs with pretty out', () => {
     const actual = genDiff(beforeJSON, afterJSON);
@@ -65,6 +66,11 @@ describe('Complex structure, ', () => {
   it('JSON configs with plain out', () => {
     const actual = genDiff(beforeJSON, afterJSON, 'plain');
     const expected = fs.readFileSync(plain).toString();
+    expect(actual).toBe(expected);
+  });
+  it('JSON configs with JSON out', () => {
+    const actual = genDiff(beforeJSON, afterJSON, 'json');
+    const expected = fs.readFileSync(json).toString();
     expect(actual).toBe(expected);
   });
 });
