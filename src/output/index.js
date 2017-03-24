@@ -1,5 +1,6 @@
-import pretty from './prettyDiff';
+import pretty from './pretty';
+import plain from './plain';
 
-const renders = { pretty };
+const renders = { pretty, plain };
 
 export default format => renders[format];
