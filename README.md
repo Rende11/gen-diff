@@ -7,7 +7,8 @@ Library shows difference between two config files
 
 ## Install (global)
 Avalible in npm
-```npm install -g gen-diff
+```
+npm install -g gen-diff
 ```
 
 ## Usage
@@ -23,4 +24,4 @@ gen-diff [--format] filepath1 filepath2
 ### Avalible output formats
 * pretty (default)
 * plain text
-* JSON
+* json
