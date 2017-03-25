@@ -1,9 +1,9 @@
 {
   "name": "gen-diff",
-  "version": "0.1.1",
+  "version": "0.2.3",
   "description": "utility for searching differences between config files",
   "bin": {
-  	"gendiff": "dist/bin/genDiff.js"
+  	"gen-diff": "dist/bin/gen-diff.js"
   },
   "repository": {
     "type": "git",

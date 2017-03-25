@@ -6,7 +6,7 @@ import commander from 'commander';
 import run from '../';
 
 commander
-    .version('1.0.0')
+    .version('0.2.3')
     .arguments('<first_config> <second_config>')
     .description('Compares two configuration files and shows a difference.')
     .action((firstPath, secondPath) =>
