@@ -1,7 +1,7 @@
 # Config differ
 Library shows difference between two config files
 
-[![Build Status](https://travis-ci.org/Rende11/project-lvl2-s70.svg?branch=master)](https://travis-ci.org/Rende11/project-lvl2-s70)
+[![Build Status](https://travis-ci.org/Rende11/gen-diff.svg?branch=master)](https://travis-ci.org/Rende11/gen-diff)
 [![Code Climate](https://codeclimate.com/repos/58d0f48e9d49d502930023b4/badges/be6fc94cb69b895c5b47/gpa.svg)](https://codeclimate.com/repos/58d0f48e9d49d502930023b4/feed)
 [![Issue Count](https://codeclimate.com/repos/58d0f48e9d49d502930023b4/badges/be6fc94cb69b895c5b47/issue_count.svg)](https://codeclimate.com/repos/58d0f48e9d49d502930023b4/feed)
 
