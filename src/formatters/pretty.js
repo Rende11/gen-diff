@@ -12,8 +12,8 @@ const getIndent = level => '  '.repeat(level);
 const renderObj = (obj, level) => {
   const keys = Object.keys(obj);
   const arr = keys.map(key => (_.isObject(obj[key]) ?
-  `${getIndent(level + 1)}${key}: ${renderObj(obj[key], level + 2)}` :
-  `${getIndent(level + 2)}${getType.unchanged}${key}: ${obj[key]}`));
+    `${getIndent(level + 1)}${key}: ${renderObj(obj[key], level + 2)}` :
+    `${getIndent(level + 2)}${getType.unchanged}${key}: ${obj[key]}`));
   return `{\n${arr.join('\n')}\n  ${getIndent(level)}}`;
 };
 
