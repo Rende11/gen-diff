@@ -39,7 +39,7 @@ const toPrettyDiff = (node, level) => {
 ${node.children.map(item => toPrettyDiff(item, level + 2)).join('\n')}\n${getIndent(level + 1)}}`;
       }
       return `${getIndent(level)}${getType[node.type]}${node.key}: ${node.oldValue}`;
-    default :
+    default:
       return `default_case ${node}`;
   }
 };

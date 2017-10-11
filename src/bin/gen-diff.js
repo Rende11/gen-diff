@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 // @flow
-/* eslint no-console: 0*/
+/* eslint no-console: 0 */
 
 import commander from 'commander';
 import run from '../';

@@ -20,7 +20,9 @@ const compare = (obj1: Object, obj2: Object) => {
     if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
       return { type: 'unchanged', key, children: compare(obj1[key], obj2[key]) };
     }
-    return { type: 'updated', key, oldValue: obj1[key], newValue: obj2[key] };
+    return {
+      type: 'updated', key, oldValue: obj1[key], newValue: obj2[key],
+    };
   });
 
   return compareData;
