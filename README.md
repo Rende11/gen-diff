@@ -15,7 +15,10 @@ npm install -g gen-diff
 ```
 gen-diff [--format] filepath1 filepath2
 ```
-### [Example](https://asciinema.org/a/du0fqdmfa9tn52styav1ywenk)
+### [Example0](https://asciinema.org/a/du0fqdmfa9tn52styav1ywenk)
+
+### [Example1](https://asciinema.org/a/zLJ0CIlXklAwXhVc40OjBv0US)
+
 
 ### Supported input files formats
 * JSON
